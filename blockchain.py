@@ -30,4 +30,12 @@ class Blockchain:
 
         while(check_proof is False):
             #Create helper method later that will increase complexity of input for sha256 library
-            hash_operation = hashlib.sha256(str(new_proof**2 - previous_proof**2))
+            hash_operation = hashlib.sha256(str(new_proof**2 - previous_proof**2).encode()).hexdigest()
+            
+            #(!) REMEMBER: Number of zeros correspond to mining difficulty. Itc, 4
+            if(hash_operation[:4] == '0000'):
+                check_proof = True
+            #Else, keep incrementng new_proof by one
+            else:
+                new_proof += 1
+        return new_proof
