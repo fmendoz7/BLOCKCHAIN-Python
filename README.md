@@ -3,9 +3,9 @@
 ### NOTE: Project still under development (WIP)
 
 Explanation: **(WIP)**: Full-Stack Application of Blockchain, paired cryptocurrency and Smart Contracts in Python
-  * ** DEPENDENCIES **
+  * **DEPENDENCIES**
 	1. Flask
 	2. Anaconda
 
-  * ** TOOLS **
+  * **TOOLS**
 	1. Postman
