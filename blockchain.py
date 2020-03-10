@@ -78,7 +78,7 @@ app = Flask(__name__)
 blockchain = Blockchain()
 
 # Mining a new block
-@app.route('/mine_block', methods['GET'])
+@app.route('/mine_block', methods = ['GET'])
 
 #METHOD: Mine block
 def mine_block():
@@ -103,4 +103,4 @@ def get_chain():
     return jsonify(response), 200
 
 # Run the App
-app.run(host - '0.0.0.0', port = 5000)
+app.run(host = '0.0.0.0', port = 5000)
