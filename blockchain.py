@@ -27,7 +27,7 @@ class Blockchain:
     def get_previous_block(self):
         return self.chain[-1] #gets last
 
-    #METHOD: Determine complexity of input for sha256 algorithm
+    #METHOD: Helper method to give complex input for sha256 algorithm
     def proof_complexity(new_proof, previous_proof):
         tempProof = str(new_proof**2 - previous_proof**2).encode()
         return tempProof
@@ -69,3 +69,27 @@ class Blockchain:
                 return False
             previous_block = block
             block_index += 1
+
+#=========================================================================================
+# FLASK WEBAPP
+app = Flask(__name__)
+
+# Blockchain Instance
+blockchain = Blockchain()
+
+# Mining a new block
+@app.route('/mine_block', methods['GET'])
+
+#METHOD: Mine block
+def mine_block():
+    previous_block = blockchain.get_previous_block()
+    previous_proof = previous_block['proof']
+    proof = blockchain.proof_of_work(previous_proof)
+    previous_hash = blockchain.hash(previous_block)
+    block = blockchain.create_block(proof, previous_hash)
+    response = {'message': 'Block Successfully Mined!',
+                'index': block[index],
+                'timestamp': block['timestamp'],
+                'proof': block['proof'], 
+                'previous_hash': block['previous_hash']}
+    return jsonify(response), 200 #status code 200 = request has succeeded
