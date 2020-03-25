@@ -1,7 +1,13 @@
+# NECESSARY DEPENDENCIES
+    # Flask v0.12.2 
+    # Postman
+    # requests v2.18.4
+
 import datetime 
 import hashlib 
 import json
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+import requests
 
 #(!)WARNING: SHA256 library only accepts encoded strings 
 
