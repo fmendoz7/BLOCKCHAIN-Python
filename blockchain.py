@@ -81,6 +81,8 @@ blockchain = Blockchain()
 @app.route('/mine_block', methods = ['GET'])
 
 # METHOD: Check if Blockchain Is Valid
+def is_valid():
+    blockchain.is_chain_valid()
 
 #METHOD: Mine block
 def mine_block():
