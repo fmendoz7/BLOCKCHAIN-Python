@@ -83,6 +83,8 @@ class Blockchain:
             previous_block = block
             block_index += 1
 
+    def add_transaction():
+
 #=========================================================================================
 # FLASK WEBAPP
 app = Flask(__name__)
