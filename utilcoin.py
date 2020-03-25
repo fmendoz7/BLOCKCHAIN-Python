@@ -20,6 +20,7 @@ class Blockchain:
     #Blockchain Constructor
     def __init__(self):
         self.chain = []
+        self.transactions = []
         self.create_block(proof = 1, previous_hash = '0')
 
     #METHOD: Creates block
@@ -122,3 +123,6 @@ def get_chain():
 
 # Run the App
 app.run(host = '0.0.0.0', port = 5000)
+
+#=========================================================================================
+# Incorporate Decentralization
