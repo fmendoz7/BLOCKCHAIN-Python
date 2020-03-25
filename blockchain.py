@@ -82,7 +82,7 @@ blockchain = Blockchain()
 
 # METHOD: Check if Blockchain Is Valid
 def is_valid():
-    blockchain.is_chain_valid()
+    is_valid = blockchain.is_chain_valid()
 
 #METHOD: Mine block
 def mine_block():
