@@ -80,6 +80,8 @@ blockchain = Blockchain()
 # Mining a new block
 @app.route('/mine_block', methods = ['GET'])
 
+# METHOD: Check if Blockchain Is Valid
+
 #METHOD: Mine block
 def mine_block():
     previous_block = blockchain.get_previous_block()
