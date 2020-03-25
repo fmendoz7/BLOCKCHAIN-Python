@@ -82,7 +82,12 @@ blockchain = Blockchain()
 
 # METHOD: Check if Blockchain Is Valid
 def is_valid():
-    is_valid = blockchain.is_chain_valid()
+    is_valid = blockchain.is_chain_valid(blockchain.chain)
+    if is_valid:
+        response = {'message': 'SUCCESS: Blockchain Is Valid'}
+    else:
+        response = {'message': 'WARNING: Blockchain Is NOT Valid'}
+    return jsonify(response), 200
 
 #METHOD: Mine block
 def mine_block():
