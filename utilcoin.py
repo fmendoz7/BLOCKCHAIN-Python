@@ -9,6 +9,9 @@ import json
 from flask import Flask, jsonify, request
 import requests
 
+from uuid import uuid4
+from urllib.parse import urlparse
+
 #(!)WARNING: SHA256 library only accepts encoded strings 
 
 class Blockchain:
