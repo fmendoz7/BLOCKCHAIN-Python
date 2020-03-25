@@ -83,7 +83,14 @@ class Blockchain:
             previous_block = block
             block_index += 1
 
-    def add_transaction():
+    def add_transaction(self, sender, receiver, amount):
+        self.transactions.append({'sender': sender,
+                                  'receiver': receiver,
+                                  'amount': amount
+            })
+
+        previous_block = self.get_previous_block()
+        return previous_block['index'] + 1
 
 #=========================================================================================
 # FLASK WEBAPP
