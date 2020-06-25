@@ -7,10 +7,12 @@ import datetime
 import hashlib 
 import json
 from flask import Flask, jsonify, request
-import requests
+import requests #used to check on Blockchain Nodes
 
 from uuid import uuid4
 from urllib.parse import urlparse
+
+import requests
 
 #(!)WARNING: SHA256 library only accepts encoded strings 
 
@@ -20,7 +22,7 @@ class Blockchain:
     #Blockchain Constructor
     def __init__(self):
         self.chain = []
-        self.transactions = []
+        self.transactions = [] #For cryptocurrency
         self.create_block(proof = 1, previous_hash = '0')
 
     #METHOD: Creates block
@@ -30,7 +32,7 @@ class Blockchain:
                  'timestamp': str(datetime.datetime.now()),
                  'proof': proof,
                  'previous_hash': previous_hash,
-                 'transactions':self.transactions
+                 'transactions':self.transactions #ever-increasing list of transactions
                  }
         self.transactions = []
         self.chain.append(block)
@@ -86,11 +88,11 @@ class Blockchain:
     def add_transaction(self, sender, receiver, amount):
         self.transactions.append({'sender': sender,
                                   'receiver': receiver,
-                                  'amount': amount
-            })
+                                  'amount': amount})
 
         previous_block = self.get_previous_block()
-        return previous_block['index'] + 1
+        #Return new block
+        return previous_block['index'] + 1 
 
 #=========================================================================================
 # FLASK WEBAPP
@@ -137,4 +139,79 @@ def get_chain():
 app.run(host = '0.0.0.0', port = 5000)
 
 #=========================================================================================
-# Incorporate Decentralization
+# Incorporate Cryptocurrency (new code)
+
+class UtilCoin(Blockchain):
+    def __init__(self):
+        self.node_address = stry(uuid64()).replace('-', '')
+        self.transactions = [] #transaction is a list (of dictionaries)
+        self.nodes = set()
+        super().__init__() #inherit from superclass Blockchain
+
+    # Method to create block 
+    def create_block(self, proof, previous_hash):
+        "Create a block with new transactions."
+
+        # Block takes DICTIONARY form with index, timestamp, proof, previous hash, transaction
+        block = {
+            'index': len(self.chain),
+            'timestamp': str(datetime.datetime.now()),
+            'proof': proof,
+            'previous_hash': previous_hash,
+            'transactions': self.transactions
+        }
+
+        self.transactions = []
+        self.chain.append(block)
+
+        return block
+
+    #Append individual transaction (dictionary) to list of transactions
+    def add_transaction(self, sender, receiver, amount):
+        "Add a transaction to list of transactions."
+
+        #Append new transaction from parameters
+        self.transactions.append(
+            {
+                'sender': sender,
+                'receiver': receiver,
+                'amount': amount
+            })
+        
+        #Return new block (remember: multiple transactions are packaged in a block)
+        return self.get_previous_block()['index'] + 1
+
+    #METHOD: Add node to UtilCoin network given address
+    def add_node(self, address):
+        "Add a node to UtilCoin network."
+
+        parsed_url = urlparse(aaddress)
+        self.nodes.add(parsed_url.netloc)
+
+    def replace_chain(self):
+        "Scan the network for longest chain and replace current chain accordingly."
+            #Handled using Redis in alternative JS implementation
+
+        longest_chain = None
+        longest_chain_length = len(self.chain)
+
+        for node in self.nodes: 
+            response = requests.get(f'http://{node}blocks')
+
+            #Will continue to retry the node until it connects
+            if not response.status_code == 200:
+                printf(f'Bad response from {node}: {response.status_code}')
+                continue #rejects all remaining statements, moves control to the top of the loop
+
+            node_chain = response.json()['chain']
+            node_chain_length = response.json()['length']
+
+            if node_chain_length > longest_chain_length and self.is_chain_valid(node_chain):
+                longest_chain_length = node_chain_length
+                longest_chain = node_chain
+
+        if longest_chain is not None:
+            self.chain = longest_chain
+            return True
+
+        return False

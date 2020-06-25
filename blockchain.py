@@ -10,7 +10,7 @@ class Blockchain:
 
     #Blockchain Constructor
     def __init__(self):
-        self.chain = []
+        self.chain = [] #chain uses a list structure
         self.create_block(proof = 1, previous_hash = '0')
 
     #METHOD: Creates block
