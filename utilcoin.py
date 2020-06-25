@@ -24,6 +24,7 @@ class Blockchain:
         self.chain = []
         self.transactions = [] #For cryptocurrency
         self.create_block(proof = 1, previous_hash = '0')
+        self.nodes = set()
 
     #METHOD: Creates block
     def create_block(self, proof, previous_hash):
@@ -139,6 +140,8 @@ def get_chain():
 app.run(host = '0.0.0.0', port = 5000)
 
 #=========================================================================================
+#============================================================================================
+"""
 # Incorporate Cryptocurrency (new code)
 
 class UtilCoin(Blockchain):
@@ -215,3 +218,4 @@ class UtilCoin(Blockchain):
             return True
 
         return False
+"""
